@@ -1,0 +1,12 @@
+.profile__name-buttom {
+    display: flex;
+    justify-content: space-between;
+    padding: 26px 0 0 0;
+}
+
+@media screen and (min-width: 880px) {
+    .profile__name-buttom {
+        padding: 0;
+        min-width: 338px;
+    }
+}

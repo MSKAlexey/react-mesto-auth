@@ -1,0 +1,21 @@
+.profile__popup-open {
+    background-image: url(../../../images/pencil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 7.5px 7.5px;
+    padding: 0;
+    margin: 9px 0 6px 12px;
+    min-width: 18px;
+    min-height: 18px;
+    border: 1px white solid;
+    background-color: black;
+}
+
+@media screen and (min-width: 880px) {
+    .profile__popup-open {
+        margin: 18px 0 8px;
+        min-width: 24px;
+        min-height: 24px;
+        background-size: 10px 10px;
+    }
+}
