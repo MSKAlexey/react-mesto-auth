@@ -11,7 +11,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import api from '../utils/Api';
-// import Register from "./Register";
+import Register from "./Register";
 import Login from "./Login";
 
 function App() {
@@ -125,8 +125,12 @@ function App() {
        }
       />
       <Route
-       path='login'
+       path='sign-in'
        element={<Login />}
+      />
+      <Route
+       path='sign-up'
+       element={<Register />}
       />
      </Routes>
      <Footer />
