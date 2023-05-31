@@ -8,11 +8,11 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/Api';
-import Register from "./Register";
-import Login from "./Login";
+import Register from './Register';
+import Login from './Login';
 
 function App() {
 
@@ -111,7 +111,7 @@ function App() {
      <Header />
      <Routes>
       <Route
-       path="/"
+       path='/'
        element={
         <Main
          onEditAvatar={handleEditAvatarClick}
@@ -127,6 +127,10 @@ function App() {
       <Route
        path='sign-in'
        element={<Login />}
+      />
+      <Route
+       path='sign-up'
+       element={<Register />}
       />
       <Route
        path='sign-up'

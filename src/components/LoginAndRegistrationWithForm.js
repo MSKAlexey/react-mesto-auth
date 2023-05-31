@@ -10,16 +10,16 @@ function LoginAndRegistrationWithForm({ titleText, buttonText, typeEmail, typePa
           className='login__input'
           placeholder={textInputEmail}
           type={typeEmail}
-          minLength="5"
-          maxLength="15"
+          minLength='5'
+          maxLength='15'
           required
         />
         <input
           className='login__input'
           placeholder='••••••••••'
           type={typePassword}
-          minLength="6"
-          maxLength="15"
+          minLength='6'
+          maxLength='15'
           required
         />
 
