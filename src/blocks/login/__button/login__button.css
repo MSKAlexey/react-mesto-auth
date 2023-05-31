@@ -1,0 +1,12 @@
+.login__button {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000000;
+  margin: 216px 0 0 0;
+  min-width: 358px;
+  min-height: 50px;
+}

@@ -1,0 +1,8 @@
+.login__container {
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 22px;
+  position: relative;
+}

@@ -1,41 +1,32 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
 
-function Login({ isOpen, onClose, onUpdateAvatar }) {
-
-  const avatar = React.useRef();
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    onUpdateAvatar(avatar.current.value);
-  }
-
-  React.useEffect(() => {
-    if (!isOpen) {
-      avatar.current.value = '';
-    }
-  }, [isOpen])
+function Login() {
 
   return (
-    <PopupWithForm
-      name={'avatar'}
-      title={'Обновить аватар'}
-      buttonText={'Сохранить'}
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={handleSubmit}
+    <form
+      className='login'
     >
-      <input
-        id='input-link-type-avatar'
-        className='popup__input popup__input_type_link'
-        type='url'
-        name='link'
-        placeholder='Ссылка на картинку'
-        required
-        ref={avatar}
-      />
-      <span id='input-link-type-avatar-error' className='error'></span>
-    </PopupWithForm>
+      <div className='login__container'>
+
+        <h1 className='login__title'>Вход</h1>
+        <input
+          className='login__input'
+          placeholder='email@mail.com'
+        />
+        <input
+          className='login__input'
+          placeholder='••••••••••'
+        />
+
+        <button
+          type='submit'
+          name='button'
+          className='login__button cursor'>Войти</button>
+
+      </div>
+
+    </form>
   )
 }
+
 export default Login;

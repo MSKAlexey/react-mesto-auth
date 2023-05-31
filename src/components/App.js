@@ -8,151 +8,166 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import api from '../utils/Api';
+// import Register from "./Register";
+import Login from "./Login";
 
 function App() {
 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
-  const [selectedCard, setselectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+ const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+ const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+ const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+ const [selectedCard, setselectedCard] = React.useState({});
+ const [currentUser, setCurrentUser] = React.useState({});
+ const [cards, setCards] = React.useState([]);
+ const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
 
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-  function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true);
-  }
-  function handleCardClick(card) {
-    setImagePopupOpen(true);
-    setselectedCard(card)
-  }
+ function handleEditAvatarClick() {
+  setIsEditAvatarPopupOpen(true);
+ }
+ function handleEditProfileClick() {
+  setIsEditProfilePopupOpen(true);
+ }
+ function handleAddPlaceClick() {
+  setIsAddPlacePopupOpen(true);
+ }
+ function handleCardClick(card) {
+  setImagePopupOpen(true);
+  setselectedCard(card)
+ }
 
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setImagePopupOpen(false);
-  }
+ function closeAllPopups() {
+  setIsEditProfilePopupOpen(false);
+  setIsEditAvatarPopupOpen(false);
+  setIsAddPlacePopupOpen(false);
+  setImagePopupOpen(false);
+ }
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+ function handleCardLike(card) {
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+   setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  })
+   .catch(console.error);
+ }
+
+ function handleCardDelete(card) {
+  api.deleteCard(card._id).then(() => {
+   setCards((state) => state.filter((c) => c._id !== card._id));
+  })
+   .catch(console.error);
+ }
+
+ function handleAddPlaceSubmit({ name, link }) {
+  api.addCard({ name, link })
+   .then(
+    (newCard) => {
+     setCards([newCard, ...cards]);
+     closeAllPopups();
     })
-      .catch(console.error);
-  }
+   .catch(console.error);
+ }
 
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
+ function handleUpdateUser(data) {
+  api.changeUserInfo({ data })
+   .then(
+    (data) => {
+     setCurrentUser(data);
+     closeAllPopups();
     })
-      .catch(console.error);
-  }
+   .catch(console.error);
+ }
 
-  function handleAddPlaceSubmit({ name, link }) {
-    api.addCard({ name, link })
-      .then(
-        (newCard) => {
-          setCards([newCard, ...cards]);
-          closeAllPopups();
-        })
-      .catch(console.error);
-  }
+ function handleUpdateAvatar(data) {
+  api.changeUserAvatar(data)
+   .then(
+    (data) => {
+     setCurrentUser(data);
+     closeAllPopups();
+    })
+   .catch(console.error);
+ }
 
-  function handleUpdateUser(data) {
-    api.changeUserInfo({ data })
-      .then(
-        (data) => {
-          setCurrentUser(data);
-          closeAllPopups();
-        })
-      .catch(console.error);
-  }
+ React.useEffect(() => {
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+   .then(([data, card]) => {
+    setCurrentUser(data);
+    setCards(card);
+   })
+   .catch(console.error);
+ }, []);
 
-  function handleUpdateAvatar(data) {
-    api.changeUserAvatar(data)
-      .then(
-        (data) => {
-          setCurrentUser(data);
-          closeAllPopups();
-        })
-      .catch(console.error);
-  }
+ return (
 
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([data, card]) => {
-        setCurrentUser(data);
-        setCards(card);
-      })
-      .catch(console.error);
-  }, []);
+  <CurrentUserContext.Provider value={currentUser}>
 
-  return (
+   <div className='page'>
 
-    <CurrentUserContext.Provider value={currentUser}>
-
-      <div className='page'>
-
-        <div className='page__container'>
-          <Header />
-          <Main
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            cards={cards}
-            onCardDelete={handleCardDelete}
-          />
-          <Footer />
-        </div>
-
-        {/* редактирование профиля */}
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
+    <div className='page__container'>
+     <Header />
+     <Routes>
+      <Route
+       path="/"
+       element={
+        <Main
+         onEditAvatar={handleEditAvatarClick}
+         onEditProfile={handleEditProfileClick}
+         onAddPlace={handleAddPlaceClick}
+         onCardClick={handleCardClick}
+         onCardLike={handleCardLike}
+         cards={cards}
+         onCardDelete={handleCardDelete}
         />
+       }
+      />
+      <Route
+       path='login'
+       element={<Login />}
+      />
+     </Routes>
+     <Footer />
+    </div>
 
-        {/* редактирование аватара */}
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
+    {/* редактирование профиля */}
+    <EditProfilePopup
+     isOpen={isEditProfilePopupOpen}
+     onClose={closeAllPopups}
+     onUpdateUser={handleUpdateUser}
+    />
 
-        {/* добавление карточки */}
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddCard={handleAddPlaceSubmit}
-        />
-        {/* удаление карточки */}
-        <PopupWithForm
-          name={'remove'}
-          title={'Вы уверены?'}
-          buttonText={'Да'}
-        />
-        {/* открытие картинки */}
-        <ImagePopup
-          onClose={closeAllPopups}
-          isOpen={isImagePopupOpen}
-          card={selectedCard}
-        />
-      </div>
+    {/* редактирование аватара */}
+    <EditAvatarPopup
+     isOpen={isEditAvatarPopupOpen}
+     onClose={closeAllPopups}
+     onUpdateAvatar={handleUpdateAvatar}
+    />
 
-    </CurrentUserContext.Provider>
+    {/* добавление карточки */}
+    <AddPlacePopup
+     isOpen={isAddPlacePopupOpen}
+     onClose={closeAllPopups}
+     onAddCard={handleAddPlaceSubmit}
+    />
+    {/* удаление карточки */}
+    <PopupWithForm
+     name={'remove'}
+     title={'Вы уверены?'}
+     buttonText={'Да'}
+    />
+    {/* открытие картинки */}
+    <ImagePopup
+     onClose={closeAllPopups}
+     isOpen={isImagePopupOpen}
+     card={selectedCard}
+    />
+   </div>
 
-  );
+  </CurrentUserContext.Provider>
+
+ );
 }
-
 export default App;
