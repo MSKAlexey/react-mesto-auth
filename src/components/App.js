@@ -24,7 +24,7 @@ function App() {
  const [selectedCard, setselectedCard] = React.useState({});
  const [currentUser, setCurrentUser] = React.useState({});
  const [cards, setCards] = React.useState([]);
- const [loggedIn, setLoggedIn] = React.useState(false);
+ const [loggedIn, setLoggedIn] = React.useState(true);
 
  console.log(loggedIn);
 
@@ -114,27 +114,20 @@ function App() {
      <Routes>
 
       <Route
-       path='/main'
+       path='main'
        element={
         <ProtectedRoute
-         element={
-          <Main
-           onEditAvatar={handleEditAvatarClick}
-           onEditProfile={handleEditProfileClick}
-           onAddPlace={handleAddPlaceClick}
-           onCardClick={handleCardClick}
-           onCardLike={handleCardLike}
-           cards={cards}
-           onCardDelete={handleCardDelete}
-          />
-         }
+         loggedIn={loggedIn}
+         element={Main}
+         onEditAvatar={handleEditAvatarClick}
+         onEditProfile={handleEditProfileClick}
+         onAddPlace={handleAddPlaceClick}
+         onCardClick={handleCardClick}
+         onCardLike={handleCardLike}
+         cards={cards}
+         onCardDelete={handleCardDelete}
         />
        }
-      />
-
-      <Route
-       path='main'
-       element={<ProtectedRoute element={Main} loggedIn={loggedIn} />}
       />
 
       <Route
@@ -147,7 +140,10 @@ function App() {
        element={<Register />}
       />
 
-      <Route path='*' element={<Navigate to='main' replace />} />
+      <Route
+       path='*'
+       element={<Navigate to='main' replace />}
+      />
 
      </Routes>
      <Footer />

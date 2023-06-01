@@ -8,10 +8,24 @@ function Login() {
     <LoginAndRegistrationWithForm
       titleText={'Вход'}
       buttonText={'Войти'}
-    typeEmail={'email'}
-    typePassword={'password'}
-    textInputEmail={'email@mail.com'}
-    />
+    >
+      <input
+        className='login__input'
+        placeholder='email@mail.com'
+        type='email'
+        minLength='5'
+        maxLength='15'
+        required
+      />
+      <input
+        className='login__input'
+        placeholder='••••••••••'
+        type='password'
+        minLength='6'
+        maxLength='15'
+        required
+      />
+    </LoginAndRegistrationWithForm>
   )
 }
 
