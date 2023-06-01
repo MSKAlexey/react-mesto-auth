@@ -8,13 +8,14 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/Api';
 import Register from './Register';
 import Login from './Login';
 
 function App() {
+
 
  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -23,8 +24,9 @@ function App() {
  const [selectedCard, setselectedCard] = React.useState({});
  const [currentUser, setCurrentUser] = React.useState({});
  const [cards, setCards] = React.useState([]);
- const [loggedIn, setLoggedIn] = React.useState(true);
+ const [loggedIn, setLoggedIn] = React.useState(false);
 
+ console.log(loggedIn);
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -112,20 +114,27 @@ function App() {
      <Routes>
 
       <Route
-       path='/'
+       path='/main'
        element={
         <ProtectedRoute
-         loggedIn={loggedIn}
-         element={Main}
-         onEditAvatar={handleEditAvatarClick}
-         onEditProfile={handleEditProfileClick}
-         onAddPlace={handleAddPlaceClick}
-         onCardClick={handleCardClick}
-         onCardLike={handleCardLike}
-         cards={cards}
-         onCardDelete={handleCardDelete}
+         element={
+          <Main
+           onEditAvatar={handleEditAvatarClick}
+           onEditProfile={handleEditProfileClick}
+           onAddPlace={handleAddPlaceClick}
+           onCardClick={handleCardClick}
+           onCardLike={handleCardLike}
+           cards={cards}
+           onCardDelete={handleCardDelete}
+          />
+         }
         />
        }
+      />
+
+      <Route
+       path='main'
+       element={<ProtectedRoute element={Main} loggedIn={loggedIn} />}
       />
 
       <Route
@@ -137,6 +146,8 @@ function App() {
        path='sign-up'
        element={<Register />}
       />
+
+      <Route path='*' element={<Navigate to='main' replace />} />
 
      </Routes>
      <Footer />
