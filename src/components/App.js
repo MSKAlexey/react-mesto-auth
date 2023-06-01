@@ -23,7 +23,7 @@ function App() {
  const [selectedCard, setselectedCard] = React.useState({});
  const [currentUser, setCurrentUser] = React.useState({});
  const [cards, setCards] = React.useState([]);
- const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+ const [loggedIn, setLoggedIn] = React.useState(true);
 
 
  function handleEditAvatarClick() {
@@ -110,10 +110,13 @@ function App() {
     <div className='page__container'>
      <Header />
      <Routes>
+
       <Route
        path='/'
        element={
-        <Main
+        <ProtectedRoute
+         loggedIn={loggedIn}
+         element={Main}
          onEditAvatar={handleEditAvatarClick}
          onEditProfile={handleEditProfileClick}
          onAddPlace={handleAddPlaceClick}
@@ -124,18 +127,17 @@ function App() {
         />
        }
       />
+
       <Route
        path='sign-in'
        element={<Login />}
       />
+
       <Route
        path='sign-up'
        element={<Register />}
       />
-      <Route
-       path='sign-up'
-       element={<Register />}
-      />
+
      </Routes>
      <Footer />
     </div>
