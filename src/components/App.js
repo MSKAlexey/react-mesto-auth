@@ -16,17 +16,17 @@ import Login from './Login';
 
 function App() {
 
-
  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+ // const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
  const [selectedCard, setselectedCard] = React.useState({});
  const [currentUser, setCurrentUser] = React.useState({});
  const [cards, setCards] = React.useState([]);
  const [loggedIn, setLoggedIn] = React.useState(true);
 
- console.log(loggedIn);
+ console.log(currentUser.email)
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -51,16 +51,19 @@ function App() {
 
  function handleCardLike(card) {
   const isLiked = card.likes.some(i => i._id === currentUser._id);
-  api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-   setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-  })
+  api.changeLikeCardStatus(card._id, !isLiked)
+   .then((newCard) => {
+    setCards((state) => state.map(c => c._id === card._id ? newCard : c));
+   })
    .catch(console.error);
  }
 
  function handleCardDelete(card) {
-  api.deleteCard(card._id).then(() => {
-   setCards((state) => state.filter((c) => c._id !== card._id));
-  })
+  // setDeleteCardPopupOpen(true);
+  api.deleteCard(card._id)
+   .then(() => {
+    setCards((state) => state.filter(c => c._id !== card._id));
+   })
    .catch(console.error);
  }
 
@@ -103,6 +106,11 @@ function App() {
    .catch(console.error);
  }, []);
 
+ function logOut() {
+  setLoggedIn(false);
+  localStorage.removeItem("jwt");
+ }
+
  return (
 
   <CurrentUserContext.Provider value={currentUser}>
@@ -110,7 +118,11 @@ function App() {
    <div className='page'>
 
     <div className='page__container'>
-     <Header />
+     <Header
+      loggedIn={loggedIn}
+      logOut={logOut}
+      email={currentUser.email}
+     />
      <Routes>
 
       <Route

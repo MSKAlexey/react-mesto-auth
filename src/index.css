@@ -19,6 +19,7 @@
 /* Блок header */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__registet-link/header__registet-link.css);
 /* Конец блока header */
 
 /* Блок profile */
