@@ -23,8 +23,8 @@ export default function Header({ loggedIn, logOut, email }) {
      path="/react-mesto-auth"
      element={
       <Link
-       to="/sign-in"
        className="header__registet-link"
+       01to="/sign-in"
       >
        Войти
       </Link>
@@ -34,8 +34,8 @@ export default function Header({ loggedIn, logOut, email }) {
      path="/sign-up"
      element={
       <Link
-       to="/sign-in"
        className="header__registet-link"
+       to="/sign-in"
       >
        Войти
       </Link>
@@ -45,8 +45,8 @@ export default function Header({ loggedIn, logOut, email }) {
      path="/sign-in"
      element={
       <Link
-       to="/sign-up"
        className="header__registet-link"
+       to="/sign-up"
       >
        Регистрация
       </Link>
