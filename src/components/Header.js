@@ -24,7 +24,7 @@ export default function Header({ loggedIn, logOut, email }) {
      element={
       <Link
        className="header__registet-link"
-       01to="/sign-in"
+       to="/sign-in"
       >
        Войти
       </Link>
