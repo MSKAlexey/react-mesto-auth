@@ -1,8 +1,6 @@
-// import React from 'react';
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-
-function Login() {
+export default function Login() {
 
   return (
     <LoginAndRegistrationWithForm
@@ -28,5 +26,3 @@ function Login() {
     </LoginAndRegistrationWithForm>
   )
 }
-
-export default Login;

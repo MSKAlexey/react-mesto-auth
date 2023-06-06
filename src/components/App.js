@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -16,15 +16,15 @@ import Login from './Login';
 
 function App() {
 
- const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
- const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
- const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
- // const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
- const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
- const [selectedCard, setselectedCard] = React.useState({});
- const [currentUser, setCurrentUser] = React.useState({});
- const [cards, setCards] = React.useState([]);
- const [loggedIn, setLoggedIn] = React.useState(false);
+ const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+ const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+ // const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false);
+ const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+ const [selectedCard, setselectedCard] = useState({});
+ const [currentUser, setCurrentUser] = useState({});
+ const [cards, setCards] = useState([]);
+ const [loggedIn, setLoggedIn] = useState(false);
 
  console.log(currentUser.email)
 
@@ -123,6 +123,7 @@ function App() {
       logOut={logOut}
       email={currentUser.email}
      />
+
      <Routes>
 
       <Route
@@ -196,7 +197,6 @@ function App() {
    </div>
 
   </CurrentUserContext.Provider>
-
  );
 }
 export default App;
