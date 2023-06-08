@@ -31,11 +31,9 @@ function App() {
  const [userData, setUserData] = useState({ email: '' });
 
 
- function handleLogin({email}) {
-  debugger
-  // console.log(email)
+ function handleLogin({ email }) {
   setLoggedIn(true);
-  setUserData({email});
+  setUserData({ email });
  }
 
  const tokenCheck = () => {
@@ -151,7 +149,7 @@ function App() {
      <Header
       loggedIn={loggedIn}
       logOut={logOut}
-     // userData={userData}
+      userData={userData}
      />
 
      <Routes>
