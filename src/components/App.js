@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import Register from './Register';
+import Login from './Login';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { ProtectedRoute } from './ProtectedRoute';
 import api from '../utils/Api';
-import Register from './Register';
-import Login from './Login';
+import * as auth from '../utils/Auth';
 
 function App() {
 
@@ -25,8 +26,26 @@ function App() {
  const [currentUser, setCurrentUser] = useState({});
  const [cards, setCards] = useState([]);
  const [loggedIn, setLoggedIn] = useState(false);
+ const [errorMessage, setErrorMessage] = useState('');
+ const navigate = useNavigate();
 
- console.log(currentUser.email)
+ function handleLogin() {
+  setLoggedIn(true);
+ }
+ function tokenCheck() {
+  const jwt = localStorage.getItem('jwt');
+  if (jwt) {
+   auth.getContent(jwt)
+     .then(user => {
+       // setIsLoading(false);
+       handleLogin(user);
+       navigate('/main');
+     })
+     .catch(console.log);
+ } else {
+   // setIsLoading(true);
+ }
+ }
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -145,7 +164,9 @@ function App() {
 
       <Route
        path='sign-in'
-       element={<Login />}
+       element={<Login
+        handleLogin={handleLogin}
+       />}
       />
 
       <Route

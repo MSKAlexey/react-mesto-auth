@@ -1,21 +1,24 @@
-function LoginAndRegistrationWithForm({ titleText, buttonText, children }) {
-  return (
-    <form className='login'>
+function LoginAndRegistrationWithForm({ titleText, buttonText, children, onSubmit }) {
+ return (
+  <form
+   className='login'
+   onSubmit={onSubmit}
+  >
 
-      <div className='login__container'>
+   <div className='login__container'>
 
-        <h1 className='login__title'>{titleText}</h1>
+    <h1 className='login__title'>{titleText}</h1>
 
-        {children}
+    {children}
 
-        <button
-          type='submit'
-          name='button'
-          className='login__button cursor'
-        >{buttonText}</button>
-      </div>
+    <button
+     type='submit'
+     name='button'
+     className='login__button cursor'
+    >{buttonText}</button>
+   </div>
 
-    </form>
-  )
+  </form>
+ )
 }
 export default LoginAndRegistrationWithForm;
