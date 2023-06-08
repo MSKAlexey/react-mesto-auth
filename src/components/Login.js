@@ -31,15 +31,13 @@ export default function Login({ handleLogin }) {
 
   auth.authorize({ email, password })
    .then(data => {
-    // console.log(data)
     if (data) {
      localStorage.setItem('jwt', data.token);
-     handleLogin(data.email);
+     handleLogin({email});
      navigate('/main');
     }
    })
    .catch(err => setErrorMessage(err));
-
  }
 
  return (
@@ -58,7 +56,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <p id="input-name-error" className="error">{errorMessage}</p> */}
+   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -69,7 +67,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <p id="input-name-error" className="error">{errorMessage}</p> */}
+   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
   </LoginAndRegistrationWithForm>
  )
 }

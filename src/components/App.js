@@ -31,12 +31,11 @@ function App() {
  const [userData, setUserData] = useState({ email: '' });
 
 
- function handleLogin({ email }) {
+ function handleLogin({email}) {
   debugger
   // console.log(email)
   setLoggedIn(true);
-  console.log(setLoggedIn);
-  setUserData(email);
+  setUserData({email});
  }
 
  const tokenCheck = () => {

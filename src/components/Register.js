@@ -22,7 +22,6 @@ export default function Register() {
   });
  }
 
-
  function handelSubmit(e) {
   e.preventDefault();
   auth.register({ email, password })
