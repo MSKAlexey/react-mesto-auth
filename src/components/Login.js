@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as auth from '../utils/Auth';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
 export default function Login({ handleLogin }) {
@@ -24,21 +24,22 @@ export default function Login({ handleLogin }) {
 
  function handleSubmit(e) {
   e.preventDefault();
-  if (!formValue.email || !formValue.password) {
-   setErrorMessage('Both fields are required');
-   return;
-  }
+  // if (!formValue.email || !formValue.password) {
+  //  setErrorMessage('Ошибка заполнения');
+  //  return;
+  // }
 
   auth.authorize({ email, password })
    .then(data => {
-    console.log(data)
+    // console.log(data)
     if (data) {
      localStorage.setItem('jwt', data.token);
-     handleLogin();
+     handleLogin(data.email);
      navigate('/main');
     }
    })
    .catch(err => setErrorMessage(err));
+
  }
 
  return (
@@ -57,7 +58,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
+   {/* <p id="input-name-error" className="error">{errorMessage}</p> */}
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -68,7 +69,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
+   {/* <p id="input-name-error" className="error">{errorMessage}</p> */}
   </LoginAndRegistrationWithForm>
  )
 }

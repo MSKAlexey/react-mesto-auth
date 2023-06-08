@@ -30,12 +30,18 @@ function App() {
  const navigate = useNavigate();
  const [userData, setUserData] = useState({ email: '' });
 
+
  function handleLogin({ email }) {
+  debugger
+  // console.log(email)
   setLoggedIn(true);
-  setUserData({ email });
+  console.log(setLoggedIn);
+  setUserData(email);
  }
- function tokenCheck() {
+
+ const tokenCheck = () => {
   const jwt = localStorage.getItem('jwt');
+  // console.log(jwt)
   if (jwt) {
    auth.getContent(jwt)
     .then(user => {
@@ -146,7 +152,7 @@ function App() {
      <Header
       loggedIn={loggedIn}
       logOut={logOut}
-      userData={userData}
+     // userData={userData}
      />
 
      <Routes>

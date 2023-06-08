@@ -1,4 +1,4 @@
-function LoginAndRegistrationWithForm({ titleText, buttonText, children, onSubmit }) {
+function LoginAndRegistrationWithForm({ titleText, buttonText, onSubmit, children }) {
  return (
   <form
    className='login'
