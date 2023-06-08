@@ -57,7 +57,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -68,7 +68,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
   </LoginAndRegistrationWithForm>
  )
 }

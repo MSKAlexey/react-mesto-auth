@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -26,26 +26,32 @@ function App() {
  const [currentUser, setCurrentUser] = useState({});
  const [cards, setCards] = useState([]);
  const [loggedIn, setLoggedIn] = useState(false);
- const [errorMessage, setErrorMessage] = useState('');
+ // const [errorMessage, setErrorMessage] = useState('');
  const navigate = useNavigate();
+ const [userData, setUserData] = useState({ email: '' });
 
- function handleLogin() {
+ function handleLogin({ email }) {
   setLoggedIn(true);
+  setUserData({ email });
  }
  function tokenCheck() {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
    auth.getContent(jwt)
-     .then(user => {
-       // setIsLoading(false);
-       handleLogin(user);
-       navigate('/main');
-     })
-     .catch(console.log);
- } else {
+    .then(user => {
+     // setIsLoading(false);
+     handleLogin(user);
+     navigate('/main');
+    })
+    .catch(console.log);
+  } else {
    // setIsLoading(true);
+  }
  }
- }
+
+ useEffect(() => {
+  tokenCheck();
+ }, [])
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -140,7 +146,7 @@ function App() {
      <Header
       loggedIn={loggedIn}
       logOut={logOut}
-      email={currentUser.email}
+      userData={userData}
      />
 
      <Routes>
