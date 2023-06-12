@@ -1,18 +1,17 @@
-import { Link, useLocation, Routes, Route } from "react-router-dom";
+import { Link, useLocation, Routes, Route } from 'react-router-dom';
 
 import logoHeader from '../images/logo.svg';
 
 export default function Header({ loggedIn, logOut, userData }) {
- console.log(userData)
  const location = useLocation();
- const linkText = location.pathname === "sign-in" ? "Регистрация" : "Войти";
- const buttonText = loggedIn ? "Выйти" : linkText;
+ const linkText = location.pathname === 'sign-in' ? 'Регистрация' : 'Войти';
+ const buttonText = loggedIn ? 'Выйти' : linkText;
 
  return (
   <header className='header'>
 
    <Link
-    to="/main"
+    href='main'
    >
     <img
      className='header__logo'
@@ -21,26 +20,27 @@ export default function Header({ loggedIn, logOut, userData }) {
     />
    </Link>
 
-   {loggedIn && <p className="header__email">{userData.email}</p>}
+   {loggedIn && <p className='header__email'>{userData.email}</p>}
+
    <Routes>
 
     <Route
-     path="/sign-up"
+     path='/sign-up'
      element={
       <Link
-       className="header__registet-link"
-       to="/sign-in"
+       className='header__registet-link'
+       to='/sign-in'
       >
        Войти
       </Link>
      }
     />
     <Route
-     path="/sign-in"
+     path='/sign-in'
      element={
       <Link
-       className="header__registet-link"
-       to="/sign-up"
+       className='header__registet-link'
+       to='/sign-up'
       >
        Регистрация
       </Link>
@@ -50,7 +50,7 @@ export default function Header({ loggedIn, logOut, userData }) {
    </Routes>
    {loggedIn && (
     <button
-     className="header__registet-link"
+     className='header__registet-link'
      onClick={logOut}
     >
      {buttonText}
