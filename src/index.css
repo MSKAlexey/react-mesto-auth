@@ -20,6 +20,7 @@
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__registet-link/header__registet-link.css);
+@import url(./blocks/header/__user-email/header__user-email.css);
 /* Конец блока header */
 
 /* Блок profile */
@@ -68,6 +69,9 @@
 @import url(./blocks/popup/__content/popup__content.css);
 @import url(./blocks/popup/__name/popup__name.css);
 @import url(./blocks/popup/_img/popup_img.css);
+@import url(./blocks/popup/__register/popup__register.css);
+@import url(./blocks/popup/__register/_type_fail/popup__register_type_fail.css);
+@import url(./blocks/popup/__register/_type_ok/popup__register_type_ok.css);
 /* Конец блока popup */
 
 /* Секция логин */

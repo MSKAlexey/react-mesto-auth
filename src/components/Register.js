@@ -1,35 +1,7 @@
-import React, { useState } from 'react';
-import * as auth from '../utils/Auth';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-export default function Register() {
-
- const [formValue, setFormValue] = useState({
-  email: '',
-  password: ''
- });
-
- const { password, email } = formValue;
- const [errorMessage, setErrorMessage] = useState('');
- const navigate = useNavigate();
-
- const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormValue({
-   ...formValue,
-   [name]: value,
-  });
- }
-
- function handelSubmit(e) {
-  e.preventDefault();
-  auth.register({ email, password })
-   .then(() => {
-    navigate('/sign-in');
-   })
-   .catch(err => setErrorMessage(err));
- }
+export default function Register({ handelSubmit, handleChange, errorMessage }) {
 
  return (
   <LoginAndRegistrationWithForm

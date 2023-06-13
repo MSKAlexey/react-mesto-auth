@@ -4,14 +4,14 @@ import logoHeader from '../images/logo.svg';
 
 export default function Header({ loggedIn, logOut, userData }) {
  const location = useLocation();
- const linkText = location.pathname === 'sign-in' ? 'Регистрация' : 'Войти';
- const buttonText = loggedIn ? 'Выйти' : linkText;
+ const linkText = location.pathname === '/sign-in' ? 'Регистрация' : 'Войти';
+ const logOutText = loggedIn ? 'Выйти' : linkText;
 
  return (
   <header className='header'>
 
    <Link
-    href='main'
+    href='/main'
    >
     <img
      className='header__logo'
@@ -20,15 +20,13 @@ export default function Header({ loggedIn, logOut, userData }) {
     />
    </Link>
 
-   {loggedIn && <p className='header__email'>{userData.email}</p>}
-
    <Routes>
 
     <Route
      path='/sign-up'
      element={
       <Link
-       className='header__registet-link'
+       className='header__registet-link cursor'
        to='/sign-in'
       >
        Войти
@@ -39,7 +37,7 @@ export default function Header({ loggedIn, logOut, userData }) {
      path='/sign-in'
      element={
       <Link
-       className='header__registet-link'
+       className='header__registet-link cursor'
        to='/sign-up'
       >
        Регистрация
@@ -48,13 +46,17 @@ export default function Header({ loggedIn, logOut, userData }) {
     />
 
    </Routes>
+
    {loggedIn && (
-    <button
-     className='header__registet-link'
-     onClick={logOut}
-    >
-     {buttonText}
-    </button>
+    <>
+     <p className='header__user-email'>{userData.email}</p>
+     <Link
+      className='header__registet-link cursor'
+      onClick={logOut}
+     >
+      {logOutText}
+     </Link>
+    </>
    )}
 
   </header>
