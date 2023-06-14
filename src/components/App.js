@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Switch } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -29,7 +29,6 @@ export default function App() {
  const [currentUser, setCurrentUser] = useState({});
  const [cards, setCards] = useState([]);
  const [loggedIn, setLoggedIn] = useState(false);
- // const [errorMessage, setErrorMessage] = useState('');
  const navigate = useNavigate();
  const [userData, setUserData] = useState({ email: '' });
  const [formValue, setFormValue] = useState({
@@ -39,36 +38,28 @@ export default function App() {
  const { password, email } = formValue;
  const [errorMessage, setErrorMessage] = useState('');
 
-
- console.log(isRegisterPopupOpen)
-
- const handleLogin = (user) => {
-  // debugger
+ const handleLogin = (email) => {
   setLoggedIn(true);
-  setUserData({ email });
+  setUserData(email);
  }
-
+ // проверка токена
  function tokenCheck() {
   const jwt = localStorage.getItem('jwt');
-  // console.log(jwt)
   if (jwt) {
    auth.getContent(jwt)
     .then(user => {
-     // setIsLoading(false);
-     handleLogin(user);
-     // debugger
-     navigate('/main');
+     handleLogin(user.data.email);
+     navigate('/');
     })
     .catch(console.log);
   } else {
-   // setIsLoading(true);
   }
  }
-
+ // проверка токена при ребута страницы
  useEffect(() => {
   tokenCheck();
  }, [])
-
+ // открытия попапов
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
  }
@@ -160,8 +151,6 @@ export default function App() {
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище
  useEffect(() => {
-  // tokenCheck();
-  // debugger
   Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([data, card]) => {
     setCurrentUser(data);
@@ -192,7 +181,7 @@ export default function App() {
      <Routes>
 
       <Route
-       path='/main'
+       path='/'
        element={
         <ProtectedRoute
          loggedIn={loggedIn}
@@ -227,7 +216,7 @@ export default function App() {
 
       <Route
        path='*'
-       element={<Navigate to='/main' replace />}
+       element={<Navigate to='/' replace />}
       />
 
      </Routes>

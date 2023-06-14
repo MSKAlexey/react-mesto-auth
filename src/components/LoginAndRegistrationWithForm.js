@@ -1,4 +1,4 @@
-function LoginAndRegistrationWithForm({ titleText, buttonText, onSubmit, children, errorMessage }) {
+function LoginAndRegistrationWithForm({ titleText, buttonText, onSubmit, children, logIn }) {
  return (
   <form
    className='login'
@@ -10,13 +10,13 @@ function LoginAndRegistrationWithForm({ titleText, buttonText, onSubmit, childre
     <h1 className='login__title'>{titleText}</h1>
 
     {children}
-    <p id="input-name-error" className="error">{errorMessage}</p>
 
     <button
      type='submit'
      name='button'
      className='login__button cursor'
     >{buttonText}</button>
+    {logIn}
    </div>
 
   </form>

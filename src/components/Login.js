@@ -24,17 +24,13 @@ export default function Login({ handleLogin }) {
 
  function handleSubmit(e) {
   e.preventDefault();
-  // if (!formValue.email || !formValue.password) {
-  //  setErrorMessage('Ошибка заполнения');
-  //  return;
-  // }
 
   auth.authorize({ email, password })
    .then(data => {
     if (data) {
      localStorage.setItem('jwt', data.token);
-     handleLogin({ email });
-      debugger
+     handleLogin(email);
+     // debugger
      navigate('/main');
     }
    })
@@ -57,7 +53,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
+   <span id="input-name-error" className="error">{errorMessage}</span>
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -68,7 +64,7 @@ export default function Login({ handleLogin }) {
     required
     onChange={handleChange}
    />
-   {/* <span id="input-name-error" className="error">{errorMessage}</span> */}
+   <span id="input-name-error" className="error">{errorMessage}</span>
   </LoginAndRegistrationWithForm>
  )
 }

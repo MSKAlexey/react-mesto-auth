@@ -21,6 +21,7 @@
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__registet-link/header__registet-link.css);
 @import url(./blocks/header/__user-email/header__user-email.css);
+@import url(./blocks/header/__logOut/header__logOut.css);
 /* Конец блока header */
 
 /* Блок profile */
