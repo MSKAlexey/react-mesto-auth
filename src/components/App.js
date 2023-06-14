@@ -16,7 +16,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import api from '../utils/Api';
 import * as auth from '../utils/Auth';
 
-function App() {
+export default function App() {
 
  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -42,7 +42,8 @@ function App() {
 
  console.log(isRegisterPopupOpen)
 
- function handleLogin({ email }) {
+ const handleLogin = (user) => {
+  // debugger
   setLoggedIn(true);
   setUserData({ email });
  }
@@ -55,6 +56,7 @@ function App() {
     .then(user => {
      // setIsLoading(false);
      handleLogin(user);
+     // debugger
      navigate('/main');
     })
     .catch(console.log);
@@ -62,6 +64,10 @@ function App() {
    // setIsLoading(true);
   }
  }
+
+ useEffect(() => {
+  tokenCheck();
+ }, [])
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -154,7 +160,8 @@ function App() {
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище
  useEffect(() => {
-  tokenCheck();
+  // tokenCheck();
+  // debugger
   Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([data, card]) => {
     setCurrentUser(data);
@@ -272,4 +279,3 @@ function App() {
   </CurrentUserContext.Provider>
  );
 }
-export default App;

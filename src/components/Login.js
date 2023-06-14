@@ -33,7 +33,8 @@ export default function Login({ handleLogin }) {
    .then(data => {
     if (data) {
      localStorage.setItem('jwt', data.token);
-     handleLogin({email});
+     handleLogin({ email });
+      debugger
      navigate('/main');
     }
    })

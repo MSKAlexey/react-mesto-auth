@@ -3,6 +3,7 @@ import { Link, useLocation, Routes, Route } from 'react-router-dom';
 import logoHeader from '../images/logo.svg';
 
 export default function Header({ loggedIn, logOut, userData }) {
+ const { email } = userData;
  const location = useLocation();
  const linkText = location.pathname === '/sign-in' ? 'Регистрация' : 'Войти';
  const logOutText = loggedIn ? 'Выйти' : linkText;
@@ -49,7 +50,7 @@ export default function Header({ loggedIn, logOut, userData }) {
 
    {loggedIn && (
     <>
-     <p className='header__user-email'>{userData.email}</p>
+     <p className='header__user-email'>{email}</p>
      <Link
       className='header__registet-link cursor'
       onClick={logOut}
