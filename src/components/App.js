@@ -23,7 +23,6 @@ export default function App() {
  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
  const [isInfoTolltip, setIsInfoTolltip] = useState(false);
- // const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false);
  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
  const [selectedCard, setselectedCard] = useState({});
  const [currentUser, setCurrentUser] = useState({});
@@ -55,7 +54,7 @@ export default function App() {
   } else {
   }
  }
- // проверка токена при ребута страницы
+ // проверка токена при ребуте страницы
  useEffect(() => {
   tokenCheck();
  }, [])
@@ -146,7 +145,7 @@ export default function App() {
     setIsInfoTolltip(true);
     navigate('/sign-in');
    })
-   .catch(err => setErrorMessage(err))
+   .catch(console.log)
    .finally(setIsRegisterPopupOpen(true));
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище

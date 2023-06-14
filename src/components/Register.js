@@ -1,6 +1,3 @@
-import React, { useState } from 'react';
-
-import { Link } from "react-router-dom";
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
 export default function Register({ handelSubmit, handleChange, errorMessage }) {
@@ -10,7 +7,7 @@ export default function Register({ handelSubmit, handleChange, errorMessage }) {
    titleText={'Регистрация'}
    buttonText={'Зарегистрироваться'}
    onSubmit={handelSubmit}
-   logIn={<p className='login__register-text'>Уже зарегистрированы? <Link className='login__register-link' href='/sign-in'>Войти</Link></p>}
+   logIn={<p className='login__register-text'>Уже зарегистрированы? <a className='login__register-link' href='/sign-in'>Войти</a></p>}
   >
    <input
     className='login__input'
@@ -34,7 +31,6 @@ export default function Register({ handelSubmit, handleChange, errorMessage }) {
     onChange={handleChange}
    />
    <span id="input-name-error" className="error">{errorMessage}</span>
-   {/* <p className='login__register-text'>Уже зарегистрированы? <Link className='login__register-link' href='/sign-in'>Войти</Link></p> */}
   </LoginAndRegistrationWithForm>
  )
 }
