@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-export default function Login({ /* handleLogin */ handelLoginSubmit, errorMessage }) {
+export default function Login({ handelLoginSubmit, /* errorMessage */ }) {
 
  const [formValue, setFormValue] = useState({
   email: '',
@@ -39,7 +39,7 @@ export default function Login({ /* handleLogin */ handelLoginSubmit, errorMessag
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   <span id="input-name-error" className="error">{/* errorMessage */}</span>
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -50,7 +50,7 @@ export default function Login({ /* handleLogin */ handelLoginSubmit, errorMessag
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   <span id="input-name-error" className="error">{/* errorMessage */}</span>
   </LoginAndRegistrationWithForm>
  )
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
+import { Link } from 'react-router-dom';
 
-export default function Register({ handelRegisterSubmit, errorMessage }) {
+export default function Register({ handelRegisterSubmit, /* errorMessage */ }) {
 
  const [formValue, setFormValue] = useState({
   email: '',
@@ -28,7 +29,7 @@ export default function Register({ handelRegisterSubmit, errorMessage }) {
    titleText={'Регистрация'}
    buttonText={'Зарегистрироваться'}
    onSubmit={handelSubmit}
-   logIn={<p className='login__register-text'>Уже зарегистрированы? <a className='login__register-link' href='/sign-in'>Войти</a></p>}
+   logIn={<p className='login__register-text'>Уже зарегистрированы? <Link className='login__register-link' to='/sign-in'>Войти</Link></p>}
   >
    <input
     className='login__input'
@@ -40,7 +41,7 @@ export default function Register({ handelRegisterSubmit, errorMessage }) {
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   <span id="input-name-error" className="error">{/* errorMessage */}</span>
    <input
     className='login__input'
     placeholder='••••••••••'
@@ -51,7 +52,7 @@ export default function Register({ handelRegisterSubmit, errorMessage }) {
     required
     onChange={handleChange}
    />
-   <span id="input-name-error" className="error">{errorMessage}</span>
+   <span id="input-name-error" className="error">{/* errorMessage */}</span>
   </LoginAndRegistrationWithForm>
  )
 }

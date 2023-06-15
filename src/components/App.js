@@ -30,7 +30,7 @@ export default function App() {
  const [loggedIn, setLoggedIn] = useState(false);
  const navigate = useNavigate();
  const [userData, setUserData] = useState({ email: '' });
- const [errorMessage, setErrorMessage] = useState('');
+ // const [errorMessage, setErrorMessage] = useState('');
 
  const handleLogin = (email) => {
   setLoggedIn(true);
@@ -132,7 +132,7 @@ export default function App() {
    })
    .catch(err => {
     setIsInfoTolltip(false);
-    setErrorMessage(err);
+    // setErrorMessage(err);   При переключении страниц регистрации/логин ошибка остается старая, то есть с не удачной попытки регистрации бует отображатся на странице логина
     console.log(err);
    })
    .finally(setIsRegisterPopupOpen(true));
@@ -150,23 +150,26 @@ export default function App() {
    .catch(err => {
     setIsInfoTolltip(false);
     setIsRegisterPopupOpen(true);
+    // setErrorMessage(err);
     console.log(err);
    })
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище
  useEffect(() => {
-  Promise.all([api.getUserInfo(), api.getInitialCards()])
-   .then(([data, card]) => {
-    setCurrentUser(data);
-    setCards(card);
-   })
-   .catch(console.log);
- }, []);
+  if (loggedIn) {
+   Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([data, card]) => {
+     setCurrentUser(data);
+     setCards(card);
+    })
+    .catch(console.log);
+  }
+ }, [loggedIn]);
  // удаляем jwt токен из локального хранилища и выходим из профиля
  function logOut() {
   setLoggedIn(false);
   localStorage.removeItem("jwt");
-  setErrorMessage('');
+  // setErrorMessage('');
  }
 
  return (
@@ -206,7 +209,7 @@ export default function App() {
        path='/sign-in'
        element={<Login
         handelLoginSubmit={handelLoginSubmit}
-        errorMessage={errorMessage}
+       // errorMessage={errorMessage}
        />}
       />
 
@@ -215,7 +218,7 @@ export default function App() {
        element={
         <Register
          handelRegisterSubmit={handelRegisterSubmit}
-         errorMessage={errorMessage}
+        // errorMessage={errorMessage}
         />}
       />
 
