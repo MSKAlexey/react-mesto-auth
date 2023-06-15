@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import * as auth from '../utils/Auth';
-import { useNavigate } from "react-router-dom";
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-export default function Login({ handleLogin, errorMessage }) {
+export default function Login({ /* handleLogin */ handelLoginSubmit, errorMessage }) {
 
  const [formValue, setFormValue] = useState({
   email: '',
@@ -11,8 +9,6 @@ export default function Login({ handleLogin, errorMessage }) {
  });
 
  const { email, password } = formValue;
- const [errorMessage, setErrorMessage] = useState('');
- const navigate = useNavigate();
 
  const handleChange = (e) => {
   const { name, value } = e.target;
@@ -24,17 +20,7 @@ export default function Login({ handleLogin, errorMessage }) {
 
  function handleSubmit(e) {
   e.preventDefault();
-
-  auth.authorize({ email, password })
-   .then(data => {
-    if (data) {
-     localStorage.setItem('jwt', data.token);
-     handleLogin(email);
-     // debugger
-     navigate('/main');
-    }
-   })
-   .catch(err => setErrorMessage(err));
+  handelLoginSubmit({ email, password });
  }
 
  return (

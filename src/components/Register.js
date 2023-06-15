@@ -1,6 +1,27 @@
+import React, { useState } from 'react';
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-export default function Register({ handelSubmit, handleChange, errorMessage }) {
+export default function Register({ handelRegisterSubmit, errorMessage }) {
+
+ const [formValue, setFormValue] = useState({
+  email: '',
+  password: ''
+ });
+
+ const { email, password } = formValue;
+
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormValue({
+   ...formValue,
+   [name]: value,
+  });
+ }
+
+ function handelSubmit(e) {
+  e.preventDefault();
+  handelRegisterSubmit({ email, password });
+ }
 
  return (
   <LoginAndRegistrationWithForm

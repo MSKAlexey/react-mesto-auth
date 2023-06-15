@@ -30,11 +30,6 @@ export default function App() {
  const [loggedIn, setLoggedIn] = useState(false);
  const navigate = useNavigate();
  const [userData, setUserData] = useState({ email: '' });
- const [formValue, setFormValue] = useState({
-  email: '',
-  password: ''
- });
- const { password, email } = formValue;
  const [errorMessage, setErrorMessage] = useState('');
 
  const handleLogin = (email) => {
@@ -127,17 +122,8 @@ export default function App() {
     })
    .catch(console.log);
  }
- // отслеживание изменений в инпутах формы регистрации
- const handleRegisterChange = (e) => {
-  const { name, value } = e.target;
-  setFormValue({
-   ...formValue,
-   [name]: value,
-  });
- }
  // субмит формы регистрации
- function handelRegisterSubmit(e) {
-  e.preventDefault();
+ function handelRegisterSubmit({ email, password }) {
   auth.register({ email, password })
    .then(() => {
     setIsRegisterPopupOpen(true);
@@ -146,9 +132,26 @@ export default function App() {
    })
    .catch(err => {
     setIsInfoTolltip(false);
+    setErrorMessage(err);
     console.log(err);
-  })
+   })
    .finally(setIsRegisterPopupOpen(true));
+ }
+ // субмит формы входа
+ function handelLoginSubmit({ email, password }) {
+  auth.authorize({ email, password })
+   .then(data => {
+    if (data) {
+     localStorage.setItem('jwt', data.token);
+     handleLogin(email);
+     navigate('/main');
+    }
+   })
+   .catch(err => {
+    setIsInfoTolltip(false);
+    setIsRegisterPopupOpen(true);
+    console.log(err);
+   })
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище
  useEffect(() => {
@@ -202,7 +205,7 @@ export default function App() {
       <Route
        path='/sign-in'
        element={<Login
-        handleLogin={handleLogin}
+        handelLoginSubmit={handelLoginSubmit}
         errorMessage={errorMessage}
        />}
       />
@@ -211,8 +214,7 @@ export default function App() {
        path='/sign-up'
        element={
         <Register
-         handelSubmit={handelRegisterSubmit}
-         handleChange={handleRegisterChange}
+         handelRegisterSubmit={handelRegisterSubmit}
          errorMessage={errorMessage}
         />}
       />
