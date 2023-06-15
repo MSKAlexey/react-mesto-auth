@@ -51,7 +51,6 @@ export default function App() {
      navigate('/');
     })
     .catch(console.log);
-  } else {
   }
  }
  // проверка токена при ребуте страницы
