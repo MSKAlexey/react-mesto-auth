@@ -1,4 +1,9 @@
 .login__register-text {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
   color: white;
   margin: 0;
   padding: 0;
