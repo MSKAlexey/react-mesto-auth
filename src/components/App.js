@@ -144,7 +144,10 @@ export default function App() {
     setIsInfoTolltip(true);
     navigate('/sign-in');
    })
-   .catch(console.log)
+   .catch(err => {
+    setIsInfoTolltip(false);
+    console.log(err);
+  })
    .finally(setIsRegisterPopupOpen(true));
  }
  // хук для начальной загрузки карточек с сервера и получение имя и профессии пользователя профиля. проверка на присутствие jwt токена в локальном хранилище
@@ -160,6 +163,7 @@ export default function App() {
  function logOut() {
   setLoggedIn(false);
   localStorage.removeItem("jwt");
+  setErrorMessage('');
  }
 
  return (
@@ -199,6 +203,7 @@ export default function App() {
        path='/sign-in'
        element={<Login
         handleLogin={handleLogin}
+        errorMessage={errorMessage}
        />}
       />
 

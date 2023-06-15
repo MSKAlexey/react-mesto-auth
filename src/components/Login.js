@@ -3,7 +3,7 @@ import * as auth from '../utils/Auth';
 import { useNavigate } from "react-router-dom";
 import LoginAndRegistrationWithForm from './LoginAndRegistrationWithForm';
 
-export default function Login({ handleLogin }) {
+export default function Login({ handleLogin, errorMessage }) {
 
  const [formValue, setFormValue] = useState({
   email: '',
