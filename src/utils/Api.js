@@ -1,10 +1,6 @@
 class Api {
   constructor() {
-    this._url = "http://localhost:3000/";
-    this._headers = {
-      authorization: "45c7ab21-c601-4d3e-824d-76630cdc55cf",
-      "Content-Type": "application/json",
-    };
+    this._url = "http://127.0.0.1:3000";
   }
 
   _checkStatusResponse(res) {
@@ -15,18 +11,30 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._url}cards`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/cards`,
       {
         method: "GET",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }).then(this._checkStatusResponse);
   }
 
   addCard({ name, link }) {
-    return fetch(`${this._url}cards`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/cards`,
       {
         method: "POST",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({
           name: name,
           link: link,
@@ -35,26 +43,39 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._url}cards/${cardId}`,
+    return fetch(`${this._url}/cards/${cardId}`,
       {
         method: "DELETE",
-        headers: this._headers,
+        // headers: this._headers,
       }).then(this._checkStatusResponse);
   }
 
   getUserInfo() {
-    return fetch(`${this._url}users/me`,
+    const token = localStorage.getItem('jwt');
+    // debugger
+    return fetch(`${this._url}/users/me`,
       {
         method: "GET",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }).then(this._checkStatusResponse);
   }
 
   changeUserInfo({ data }) {
-    return fetch(`${this._url}users/me`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/users/me`,
       {
         method: "PATCH",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({
           name: data.name,
           about: data.about,
@@ -63,10 +84,16 @@ class Api {
   }
 
   changeUserAvatar(link) {
-    return fetch(`${this._url}users/me/avatar`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/users/me/avatar`,
       {
         method: "PATCH",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({
           avatar: link,
         })
@@ -74,18 +101,28 @@ class Api {
   }
 
   addLike(cardId) {
-    return fetch(`${this._url}cards/likes/${cardId}`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/cards/likes/${cardId}`,
       {
         method: "PUT",
-        headers: this._headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }).then(this._checkStatusResponse);
   }
 
   deleteLike(cardId) {
-    return fetch(`${this._url}cards/likes/${cardId}`,
+    const token = localStorage.getItem('jwt');
+    return fetch(`${this._url}/cards/likes/${cardId}`,
       {
         method: "DELETE",
-        headers: this._headers,
+        // headers: this._headers,
+        // headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }).then(this._checkStatusResponse);
   }
 
