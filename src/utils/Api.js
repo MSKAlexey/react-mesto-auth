@@ -1,6 +1,6 @@
 class Api {
   constructor() {
-    this._url = "https://mesto.nomoreparties.co/v1/cohort-64/";
+    this._url = "http://localhost:3000/";
     this._headers = {
       authorization: "45c7ab21-c601-4d3e-824d-76630cdc55cf",
       "Content-Type": "application/json",
