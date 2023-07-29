@@ -43,10 +43,15 @@ class Api {
   }
 
   deleteCard(cardId) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards/${cardId}`,
       {
         method: "DELETE",
         // headers: this._headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }).then(this._checkStatusResponse);
   }
 
@@ -102,7 +107,7 @@ class Api {
 
   addLike(cardId) {
     const token = localStorage.getItem('jwt');
-    return fetch(`${this._url}/cards/likes/${cardId}`,
+    return fetch(`${this._url}/cards/${cardId}/likes`,
       {
         method: "PUT",
         headers: {
@@ -114,11 +119,9 @@ class Api {
 
   deleteLike(cardId) {
     const token = localStorage.getItem('jwt');
-    return fetch(`${this._url}/cards/likes/${cardId}`,
+    return fetch(`${this._url}/cards/${cardId}/likes`,
       {
         method: "DELETE",
-        // headers: this._headers,
-        // headers: `Bearer ${token}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
