@@ -70,7 +70,7 @@ class Api {
       }).then(this._checkStatusResponse);
   }
 
-  changeUserInfo({ data }) {
+  changeUserInfo(data) {
     const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me`,
       {
@@ -107,6 +107,7 @@ class Api {
 
   addLike(cardId) {
     const token = localStorage.getItem('jwt');
+    debugger
     return fetch(`${this._url}/cards/${cardId}/likes`,
       {
         method: "PUT",
@@ -119,6 +120,7 @@ class Api {
 
   deleteLike(cardId) {
     const token = localStorage.getItem('jwt');
+    debugger
     return fetch(`${this._url}/cards/${cardId}/likes`,
       {
         method: "DELETE",
